@@ -1,0 +1,41 @@
+        def check():
+            return message.author == ctx.author and message.channel == ctx.channel 
+        message = await client.wait_for("message", check = check, timeout = 20)
+        if message.content:
+            rolename = message.content
+            if type(rolename) is int:
+
+                add_default_role(int(rolename))
+                await ctx.send("role has successfully added!")
+
+            if type(rolename) is str:
+
+                for guild in client.guilds:
+                    for role in guild.roles:
+                        if str(role.name) == str(rolename):
+                            add_default_role(int(role.id))
+                await ctx.send("role has successfully added!")   
+
+                #-------------------------
+
+        for check in del_channel.members:
+            if check.bot:
+                bot_list.append(check.name)
+            else:
+                member_list.append(check.name)
+
+        if is_private_user_exists(member.id):
+            if not member_list and bot_list:
+                await del_channel.delete()       
+                del_private_info(member.id)
+            if not member_list and not bot_list:
+                await del_channel.delete()       
+                del_private_info(member.id)
+        
+
+
+        #-------------------------------
+
+info = give_private_info(member.id)
+        del_channel = client.get_channel(info['channel_ID'])
+        
